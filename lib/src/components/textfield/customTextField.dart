@@ -41,7 +41,7 @@ class CustomTextFormField extends StatelessWidget {
         validator: validator,
         decoration: InputDecoration(
             filled: true,
-            fillColor: fillColor ?? AppColors.textfieldBlue,
+            fillColor: fillColor ?? AppColors.primaryWhite,
             enabledBorder: OutlineInputBorder(
                 borderSide: const BorderSide(color: AppColors.transparent),
                 borderRadius: BorderRadius.circular(12.0)),

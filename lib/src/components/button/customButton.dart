@@ -6,8 +6,9 @@ class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback voidCallback;
   final double? width;
+  final Color? btnColor;
   const CustomButton(
-      {super.key, required this.text, required this.voidCallback, this.width});
+      {super.key, required this.text, required this.voidCallback, this.width, this.btnColor});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class CustomButton extends StatelessWidget {
         alignment: Alignment.center,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.0),
-            color: AppColors.primaryBlack),
+            color:btnColor?? AppColors.primaryBlack),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 20.0),
           child: CustomText(

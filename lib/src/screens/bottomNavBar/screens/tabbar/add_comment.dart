@@ -31,8 +31,26 @@ class AddComment extends StatelessWidget {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CustomText(
-                        text: controller.comments[index].name ?? '',
+                      Row(
+                        children: [
+                          Container(
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: AppColors.lightGrey),
+                              child: Padding(
+                                padding: EdgeInsets.all(8.sp),
+                                child: Icon(Icons.person),
+                              )),
+                          SizedBox(
+                            width: 2.w,
+                          ),
+                          CustomText(
+                            text: controller.comments[index].name ?? '',
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 1.h,
                       ),
                       Container(
                         width: double.infinity,
@@ -45,7 +63,10 @@ class AddComment extends StatelessWidget {
                           child: CustomText(
                               text: controller.comments[index].comment ?? ''),
                         ),
-                      )
+                      ),
+                      SizedBox(
+                        height: 2.h,
+                      ),
                     ],
                   );
                 }),
@@ -59,6 +80,7 @@ class AddComment extends StatelessWidget {
                   width: 70.w,
                   hintText: "Add Comment",
                   labelText: "Add Comment",
+                  fillColor: AppColors.lightGrey,
                   controller: commentController),
               InkWell(
                 onTap: () {

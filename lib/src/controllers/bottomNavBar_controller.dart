@@ -2,22 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class BottomNavBarController extends GetxController {
-  PageController? pageController;
-  var currentIndex = 0.obs;
-  GlobalKey bottomNavigationKey = GlobalKey();
+  var tabIndex = 0.obs;
+
+  void changeTabIndex(int index) {
+    tabIndex.value = index;
+  }
+
   @override
   void onInit() {
     super.onInit();
-    pageController = PageController();
   }
 
   @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    pageController!.dispose();
+  void dispose() {
+    super.dispose();
   }
 }

@@ -23,7 +23,7 @@ class SignUpScreen extends StatelessWidget {
     final AuthController authController = Get.put(AuthController());
 
     return Scaffold(
-      backgroundColor: AppColors.gradientWhiteHomeColor2,
+      backgroundColor: AppColors.lightGreenColor,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(16.sp),
@@ -36,6 +36,7 @@ class SignUpScreen extends StatelessWidget {
                   child: CustomText(
                     text: "Create Account",
                     fontWeight: FontWeight.bold,
+                    textColor: AppColors.primaryWhite,
                     fontSize: 22.sp,
                   ),
                 ),
@@ -44,8 +45,8 @@ class SignUpScreen extends StatelessWidget {
                 ),
                 CustomTextFormField(
                   controller: nameController,
-                  hintText: "Full Name",
                   labelText: "Full Name",
+                  hintText: "Full Name",
                 ),
                 SizedBox(
                   height: 20.sp,
@@ -60,32 +61,32 @@ class SignUpScreen extends StatelessWidget {
                 ),
                 CustomTextFormField(
                   controller: ageController,
-                  hintText: "Age",
                   labelText: "Age",
+                  hintText: "Age",
                 ),
                 SizedBox(
                   height: 20.sp,
                 ),
                 CustomTextFormField(
                   controller: addressController,
-                  hintText: "Address",
                   labelText: "Address",
+                  hintText: "Address",
                 ),
                 SizedBox(
                   height: 20.sp,
                 ),
                 CustomTextFormField(
                   controller: phoneController,
-                  hintText: "Phone Number",
                   labelText: "Phone Number",
+                  hintText: "Phone Number",
                 ),
                 SizedBox(
                   height: 20.sp,
                 ),
                 CustomTextFormField(
                   controller: passwordController,
-                  hintText: "Password",
                   labelText: "Password",
+                  hintText: "Password",
                 ),
                 SizedBox(
                   height: 20.sp,
@@ -119,7 +120,7 @@ class SignUpScreen extends StatelessWidget {
                   children: [
                     CustomText(
                       text: "Already have an account?",
-                      textColor: AppColors.primaryGrey,
+                      textColor: AppColors.primaryWhite,
                       fontSize: 15.sp,
                     ),
                     SizedBox(
@@ -135,7 +136,8 @@ class SignUpScreen extends StatelessWidget {
                       },
                       child: CustomText(
                         text: "Sign In",
-                        textColor: AppColors.textBlue,
+                        textColor: AppColors.greenColor,
+                        fontWeight: FontWeight.bold,
                         fontSize: 15.sp,
                       ),
                     ),

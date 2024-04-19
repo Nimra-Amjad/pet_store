@@ -15,7 +15,7 @@ class ShelterContainer extends StatelessWidget {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-          color: AppColors.gradientRequestButtonColor1,
+          color: AppColors.blackColor,
           borderRadius: BorderRadius.circular(14.0)),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 10.sp, vertical: 10.sp),
@@ -25,22 +25,28 @@ class ShelterContainer extends StatelessWidget {
               text: "ANIMAL HOME SHELTER",
               fontSize: 16.sp,
               fontWeight: FontWeight.bold,
+              textColor: AppColors.primaryWhite,
             ),
             SizedBox(
               height: 1.h,
             ),
             CustomText(
               text: "Contact No: $contactNo",
+              textColor: AppColors.primaryWhite,
               fontSize: 16.sp,
             ),
             CustomText(
               text: "Address: $address",
+              textColor: AppColors.primaryWhite,
               fontSize: 16.sp,
             ),
             SizedBox(
               height: 1.h,
             ),
-            CustomButton(text: "Contact Now", voidCallback: () {})
+            CustomButton(
+                text: "Contact Now",
+                btnColor: AppColors.lightGreenColor,
+                voidCallback: () {})
           ],
         ),
       ),

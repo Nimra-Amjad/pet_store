@@ -18,7 +18,7 @@ class LoginScreen extends StatelessWidget {
     TextEditingController passwordController = TextEditingController();
     final AuthController authController = Get.put(AuthController());
     return Scaffold(
-      backgroundColor: AppColors.gradientWhiteHomeColor2,
+      backgroundColor: AppColors.lightGreenColor,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(16.sp),
@@ -31,6 +31,7 @@ class LoginScreen extends StatelessWidget {
                   child: CustomText(
                     text: "Login",
                     fontWeight: FontWeight.bold,
+                    textColor: AppColors.primaryWhite,
                     fontSize: 22.sp,
                   ),
                 ),
@@ -41,7 +42,7 @@ class LoginScreen extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: CustomText(
                     text: "Please sign in to continue",
-                    textColor: AppColors.primaryGrey,
+                    textColor: AppColors.primaryWhite,
                     fontSize: 16.sp,
                   ),
                 ),
@@ -50,16 +51,16 @@ class LoginScreen extends StatelessWidget {
                 ),
                 CustomTextFormField(
                   controller: emailController,
-                  hintText: "Enter your Email",
                   labelText: "Enter your Email",
+                  hintText: "",
                 ),
                 SizedBox(
                   height: 20.sp,
                 ),
                 CustomTextFormField(
                   controller: passwordController,
-                  hintText: "Enter your password",
                   labelText: "Enter your password",
+                  hintText: "",
                 ),
                 SizedBox(
                   height: 20.sp,
@@ -88,7 +89,7 @@ class LoginScreen extends StatelessWidget {
                   children: [
                     CustomText(
                       text: "Don't have an account?",
-                      textColor: AppColors.primaryGrey,
+                      textColor: AppColors.primaryWhite,
                       fontSize: 15.sp,
                     ),
                     SizedBox(
@@ -103,7 +104,8 @@ class LoginScreen extends StatelessWidget {
                       },
                       child: CustomText(
                         text: "Sign Up",
-                        textColor: AppColors.textBlue,
+                        fontWeight: FontWeight.bold,
+                        textColor: AppColors.greenColor,
                         fontSize: 15.sp,
                       ),
                     ),

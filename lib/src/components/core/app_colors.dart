@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
+  static const Color greenColor = Color.fromARGB(255, 0, 66, 55);
+  static const Color lightGreenColor = Color.fromARGB(255, 73, 133, 123);
+
   //------------------------Gradient Color-------------------------
   static const Color gradientBlueColor1 =
       Color(0xff73aada); //Gradient1 use for login & signup screen

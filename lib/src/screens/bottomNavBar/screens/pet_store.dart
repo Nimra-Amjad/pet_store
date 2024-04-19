@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pet_store_app/src/components/core/app_assets.dart';
+import 'package:pet_store_app/src/components/core/app_colors.dart';
 import 'package:pet_store_app/src/components/textfield/customTextField.dart';
 import 'package:pet_store_app/src/components/widgets/shopPetFoodcontainer.dart';
 import 'package:pet_store_app/src/components/widgets/topHeadingContainer.dart';
@@ -16,18 +17,19 @@ class PetStoreScreen extends StatelessWidget {
       child: Column(
         children: [
           const TopHeadingContainer(text: "PET STORE"),
+          SizedBox(
+            height: 2.h,
+          ),
+          CustomTextFormField(
+              hintText: "Search Item",
+              labelText: "Search Item",
+              suffixIcon: Icons.search,
+              fillColor: AppColors.lightGrey,
+              controller: searchController),
           Expanded(
               child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(
-                  height: 2.h,
-                ),
-                CustomTextFormField(
-                    hintText: "Search Item",
-                    labelText: "Search Item",
-                    suffixIcon: Icons.search,
-                    controller: searchController),
                 SizedBox(
                   height: 2.h,
                 ),

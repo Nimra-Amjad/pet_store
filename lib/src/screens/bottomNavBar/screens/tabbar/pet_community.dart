@@ -59,7 +59,7 @@ class _PetCommunityState extends State<PetCommunity>
       controller: _tabController,
       children: const [
         VideosScreen(index: 0),
-        DiscussionScreen(index: 1),
+        // DiscussionScreen(index: 1),
         AdoptScreen(index: 2),
       ],
     );

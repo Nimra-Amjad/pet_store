@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pet_store_app/src/components/core/app_colors.dart';
 import 'package:pet_store_app/src/components/textfield/customTextField.dart';
 import 'package:pet_store_app/src/components/widgets/shelterContainer.dart';
 import 'package:pet_store_app/src/components/widgets/topHeadingContainer.dart';
@@ -26,6 +27,7 @@ class PetShelterScreen extends StatelessWidget {
                     hintText: "Search",
                     labelText: "Search",
                     suffixIcon: Icons.search,
+                    fillColor: AppColors.lightGrey,
                     controller: searchController),
                 SizedBox(
                   height: 2.h,

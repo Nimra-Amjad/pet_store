@@ -10,7 +10,7 @@ class UserDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: AppColors.gradientSplashBoxColor4,
+      backgroundColor: AppColors.lightGreenColor,
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
@@ -26,7 +26,10 @@ class UserDrawer extends StatelessWidget {
                 child: Container(
                   height: 18.h,
                   width: 60.w,
-                  color: AppColors.blackColor.withOpacity(0.8),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12.0),
+                    color: AppColors.greenColor.withOpacity(0.8),
+                  ),
                   child: Padding(
                     padding: EdgeInsets.only(left: 20.sp),
                     child: const Column(
