@@ -9,7 +9,6 @@ import 'package:pet_store_app/src/screens/bottomNavBar/screens/tabbar/add_post.d
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class DiscussionScreen extends StatelessWidget {
-  // final int index;
   const DiscussionScreen({
     Key? key,
   }) : super(key: key);

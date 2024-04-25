@@ -1,9 +1,13 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class TabBarController extends GetxController {
-  var selectedIndex = 0.obs;
+class TabBarController extends GetxController
+    with GetSingleTickerProviderStateMixin {
+  TabController? tabController;
 
-  void changeTab(int index) {
-    selectedIndex.value = index;
+  @override
+  void onInit() {
+    tabController = TabController(vsync: this, length: 2);
+    super.onInit();
   }
 }

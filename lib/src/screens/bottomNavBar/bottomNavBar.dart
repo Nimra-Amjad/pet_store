@@ -6,7 +6,7 @@ import 'package:pet_store_app/src/components/text/customText.dart';
 import 'package:pet_store_app/src/controllers/bottomNavBar_controller.dart';
 import 'package:pet_store_app/src/screens/bottomNavBar/screens/pet_shelter.dart';
 import 'package:pet_store_app/src/screens/bottomNavBar/screens/pet_store.dart';
-import 'package:pet_store_app/src/screens/bottomNavBar/screens/tabbar/discussion.dart';
+import 'package:pet_store_app/src/screens/bottomNavBar/screens/tabbar/pet_community.dart';
 
 class BottomNavBar extends StatelessWidget {
   BottomNavBar({super.key});
@@ -100,16 +100,16 @@ class BottomNavBar extends StatelessWidget {
         ),
         elevation: 0.0,
       ),
-      drawer: UserDrawer(),
+      drawer: const UserDrawer(),
       bottomNavigationBar:
           buildBottomNavigationMenu(context, landingPageController),
       body: Obx(() => IndexedStack(
             index: landingPageController.tabIndex.value,
-            children: [
+            children: const [
               PetStoreScreen(),
-              DiscussionScreen(),
+              PetCommunity(),
               PetShelterScreen(),
-              const Center(
+              Center(
                 child: CustomText(text: "Location"),
               )
             ],
