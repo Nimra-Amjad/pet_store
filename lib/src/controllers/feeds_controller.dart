@@ -15,7 +15,7 @@ class FeedsController extends GetxController {
   Rx<File> image = File('').obs;
   User? user = FirebaseAuth.instance.currentUser;
   RxList feedList = [].obs;
-  RxList<model.Comments> comments = <model.Comments>[].obs;
+  RxList<model.CommentsOnFeed> comments = <model.CommentsOnFeed>[].obs;
 
   Future pickImage(ImageSource source) async {
     try {
@@ -88,8 +88,8 @@ class FeedsController extends GetxController {
       List<dynamic> comments = data['comments'] ?? [];
 
       // Create a new comment object
-      model.Comments newComment =
-          model.Comments(name: userName, comment: comment);
+      model.CommentsOnFeed newComment =
+          model.CommentsOnFeed(name: userName, comment: comment);
 
       // Convert the comment object to JSON and add it to the list of comments
       comments.add(newComment.toJson());
@@ -119,7 +119,7 @@ class FeedsController extends GetxController {
 
       // Convert each comment data to a Comment object and add to the comments list
       commentsData.forEach((commentData) {
-        model.Comments comment = model.Comments.fromJson(commentData);
+        model.CommentsOnFeed comment = model.CommentsOnFeed.fromJson(commentData);
         comments.add(comment);
       });
 

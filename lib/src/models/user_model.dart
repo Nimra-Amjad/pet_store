@@ -86,18 +86,18 @@ class Feeds {
       };
 }
 
-///<-------------------------------Likes Model--------------------------------->
+///<-------------------------------LikesOnFeed Model--------------------------------->
 
-class Likes {
+class LikesOnFeed {
   final String? name;
 
-  Likes({
+  LikesOnFeed({
     this.name,
   });
 
-  static Likes fromSnap(DocumentSnapshot snap) {
+  static LikesOnFeed fromSnap(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
-    return Likes(
+    return LikesOnFeed(
       name: snapshot['name'],
     );
   }
@@ -107,16 +107,98 @@ class Likes {
       };
 }
 
-///<-------------------------------Comments Model--------------------------------->
+///<-------------------------------CommentsOnFeed Model--------------------------------->
 
-class Comments {
+class CommentsOnFeed {
   final String? name;
   final String? comment;
 
-  Comments({this.name, this.comment});
+  CommentsOnFeed({this.name, this.comment});
 
-    factory Comments.fromJson(Map<String, dynamic> json) {
-    return Comments(
+  factory CommentsOnFeed.fromJson(Map<String, dynamic> json) {
+    return CommentsOnFeed(
+      name: json['name'] ?? '',
+      comment: json['comment'] ?? '',
+    );
+  }
+
+  Map<String, dynamic> toJson() => {"name": name, "comment": comment};
+}
+
+///<-------------------------------Videos Model--------------------------------->
+
+class Videos {
+  final String? userUid;
+  final String? postId;
+  final String? video;
+  final String? title;
+  final String? timeStamp;
+  List<dynamic>? likes;
+  List<dynamic>? comments;
+
+  Videos(
+      {this.userUid,
+      this.postId,
+      this.video,
+      this.title,
+      this.timeStamp,
+      this.likes,
+      this.comments});
+
+  static Videos fromSnap(DocumentSnapshot snap) {
+    var snapshot = snap.data() as Map<String, dynamic>;
+    return Videos(
+        userUid: snapshot['userUid'],
+        postId: snapshot['postId'],
+        video: snapshot['video'],
+        title: snapshot['title'],
+        timeStamp: snapshot['timeStamp'],
+        likes: snapshot['likes'],
+        comments: snapshot['comments']);
+  }
+
+  Map<String, dynamic> toJson() => {
+        "userUid": userUid,
+        "postId": postId,
+        "video": video,
+        "title": title,
+        "timeStamp": timeStamp,
+        "likes": likes,
+        "comments": comments,
+      };
+}
+
+///<-------------------------------LikesOnVideo Model--------------------------------->
+
+class LikesOnVideo {
+  final String? name;
+
+  LikesOnVideo({
+    this.name,
+  });
+
+  static LikesOnVideo fromSnap(DocumentSnapshot snap) {
+    var snapshot = snap.data() as Map<String, dynamic>;
+    return LikesOnVideo(
+      name: snapshot['name'],
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        "name": name,
+      };
+}
+
+///<-------------------------------CommentsOnVideo Model--------------------------------->
+
+class CommentsOnVideo {
+  final String? name;
+  final String? comment;
+
+  CommentsOnVideo({this.name, this.comment});
+
+  factory CommentsOnVideo.fromJson(Map<String, dynamic> json) {
+    return CommentsOnVideo(
       name: json['name'] ?? '',
       comment: json['comment'] ?? '',
     );

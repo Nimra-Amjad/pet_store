@@ -1,67 +1,105 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pet_store_app/src/components/button/customButton.dart';
+import 'package:pet_store_app/src/components/button/smallButton.dart';
+import 'package:pet_store_app/src/components/core/app_colors.dart';
+import 'package:pet_store_app/src/components/core/toast_message.dart';
+import 'package:pet_store_app/src/components/text/customText.dart';
+import 'package:pet_store_app/src/controllers/video_hosting_controller.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:video_player/video_player.dart';
 
-class AddVideo extends StatefulWidget {
+class AddVideo extends StatelessWidget {
   const AddVideo({super.key});
 
   @override
-  State<AddVideo> createState() => _AddVideoState();
-}
-
-class _AddVideoState extends State<AddVideo> {
-  String? videoUrl;
-  VideoPlayerController? controller;
-
-  @override
-  void dispose() {
-    controller!.dispose();
-    super.dispose();
-  }
-
-  pickVideo() async {
-    final picker = ImagePicker();
-    XFile? videoFile;
-    try {
-      videoFile = await picker.pickVideo(source: ImageSource.gallery);
-      return videoFile!.path;
-    } catch (e) {
-      print("Error picking video: $e");
-    }
-  }
-
-  video() async {
-    videoUrl = await pickVideo();
-  }
-
-  void initializeVideoPlayer() {
-    controller = VideoPlayerController.file(File(videoUrl!))
-      ..initialize().then((value) {
-        setState(() {});
-        controller!.play();
-      });
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final VideoHostingController controller = Get.put(VideoHostingController());
+    final TextEditingController textController = TextEditingController();
     return Scaffold(
-      body: Center(
-        child: videoUrl != null
-            ? controller != null
-                ? AspectRatio(
-                    aspectRatio: controller!.value.aspectRatio,
-                    child: VideoPlayer(controller!),
-                  )
-                : const CircularProgressIndicator()
-            : const Text("No video selected"),
+      resizeToAvoidBottomInset: true,
+      appBar: AppBar(
+        title: CustomText(
+          text: "Add New Video",
+          fontSize: 16.sp,
+        ),
+        centerTitle: true,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          video();
-        },
-        child: const Icon(Icons.video_library),
+      body: Obx(() {
+        return Padding(
+          padding: EdgeInsets.all(12.sp),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Align(
+                    alignment: Alignment.topRight,
+                    child: SmallButton(
+                      text: "Post",
+                      voidCallback: () {
+                        if (textController.text != "" ||
+                            controller.video.value.path != '') {
+                          controller.addVideo(title: textController.text);
+                          Navigator.pop(context);
+                          // controller.getFeedList();
+                          textController.clear();
+                        } else {
+                          ToastMessage()
+                              .toastMsg("Invalid Post", AppColors.primaryRed);
+                        }
+                      },
+                    )),
+                TextField(
+                  controller: textController,
+                  maxLines: controller.video.value.path == '' ? 5 : 1,
+                  decoration: InputDecoration(
+                    hintText: "What's on your mind",
+                    hintStyle: TextStyle(
+                        fontSize: 18.sp, color: AppColors.primaryGrey),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(color: AppColors.transparent),
+                        borderRadius: BorderRadius.circular(12.0)),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(color: AppColors.transparent),
+                        borderRadius: BorderRadius.circular(12.0)),
+                    errorBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(color: AppColors.transparent),
+                        borderRadius: BorderRadius.circular(12.0)),
+                  ),
+                ),
+                Container(
+                  width: double.infinity,
+                  height: 20.h,
+                  child: controller.video.value.path.isEmpty
+                      ? Icon(Icons.video_call)
+                      : AspectRatio(
+                          aspectRatio: controller
+                              .videoPlayerController!.value.aspectRatio,
+                          child: VideoPlayer(controller.videoPlayerController!),
+                        ),
+                ),
+              ],
+            ),
+          ),
+        );
+      }),
+      floatingActionButton: Visibility(
+        visible: MediaQuery.of(context).viewInsets.bottom == 0,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            CustomButton(
+                text: "Select Video",
+                voidCallback: () {
+                  controller.pickVideo();
+                }),
+          ],
+        ),
       ),
     );
   }
