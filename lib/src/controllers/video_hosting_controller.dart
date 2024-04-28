@@ -17,6 +17,7 @@ class VideoHostingController extends GetxController {
   VideoPlayerController? videoPlayerController;
   final ImagePicker picker = ImagePicker();
   RxList feedList = [].obs;
+  RxList<model.CommentsOnVideo> comments = <model.CommentsOnVideo>[].obs;
   Rx<File> video = File('').obs;
 
   Future pickVideo() async {
@@ -62,13 +63,13 @@ class VideoHostingController extends GetxController {
       QuerySnapshot querySnapshot =
           await FirebaseFirestore.instance.collectionGroup('videos').get();
 
-      List<model.Feeds> userFeeds = [];
+      List<model.Videos> userFeeds = [];
       querySnapshot.docs.forEach((doc) {
         if (doc.exists) {
           var data = doc.data() as Map<String, dynamic>;
-          model.Feeds feed = model.Feeds(
+          model.Videos feed = model.Videos(
             postId: data['postId'],
-            image: data['video'],
+            video: data['video'],
             title: data['title'],
             userUid: data['userUid'],
             timeStamp: data['timeStamp'],
@@ -78,6 +79,63 @@ class VideoHostingController extends GetxController {
       });
 
       feedList.assignAll(userFeeds);
+    }
+  }
+
+  void addCommentOnPost(
+      String userId, String postId, String userName, String comment) async {
+    // Get a reference to the post document
+    DocumentReference postRef = FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('videos')
+        .doc(postId);
+
+    // Get the current data of the post
+    DocumentSnapshot postDoc = await postRef.get();
+    if (postDoc.exists) {
+      var data = postDoc.data() as Map<String, dynamic>;
+      List<dynamic> comments = data['comments'] ?? [];
+
+      // Create a new comment object
+      model.CommentsOnVideo newComment =
+          model.CommentsOnVideo(name: userName, comment: comment);
+
+      // Convert the comment object to JSON and add it to the list of comments
+      comments.add(newComment.toJson());
+
+      // Update the post document with the new comments list
+      await postRef.update({'comments': comments});
+    }
+  }
+
+  void getComments(String userId, String postId) async {
+    // Get a reference to the post document
+    DocumentReference postRef = FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('videos')
+        .doc(postId);
+
+    // Get the current data of the post
+    DocumentSnapshot postDoc = await postRef.get();
+    if (postDoc.exists) {
+      comments.clear();
+      var data = postDoc.data() as Map<String, dynamic>;
+      List<dynamic> commentsData = data['comments'] ?? [];
+
+      print(
+          'Raw Comments Data: $commentsData'); // Debugging: Print raw comments data
+
+      // Convert each comment data to a Comment object and add to the comments list
+      commentsData.forEach((commentData) {
+        model.CommentsOnVideo comment =
+            model.CommentsOnVideo.fromJson(commentData);
+        comments.add(comment);
+      });
+
+      print(
+          'Processed Comments: $comments'); // Debugging: Print processed comments list
     }
   }
 

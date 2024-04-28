@@ -10,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:pet_store_app/src/models/user_model.dart' as model;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:pet_store_app/src/screens/bottomNavBar/bottomNavBar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FeedsController extends GetxController {
   Rx<File> image = File('').obs;
@@ -31,6 +32,9 @@ class FeedsController extends GetxController {
   }
 
   addPost({required String title}) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? username = prefs.getString('userName');
+
     final random = Random().nextInt(999999).toString().padLeft(6, '0');
     String fileName = DateTime.now().microsecondsSinceEpoch.toString();
 
@@ -42,6 +46,7 @@ class FeedsController extends GetxController {
     model.Feeds feed = model.Feeds(
         postId: random,
         image: downloadURL,
+        ownerName: username,
         title: title,
         userUid: user!.uid,
         timeStamp: DateTime.now().toString());
@@ -73,7 +78,10 @@ class FeedsController extends GetxController {
   }
 
   void addCommentOnPost(
-      String userId, String postId, String userName, String comment) async {
+      String userId, String postId, String comment) async {
+
+        final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? username = prefs.getString('userName');
     // Get a reference to the post document
     DocumentReference postRef = FirebaseFirestore.instance
         .collection('users')
@@ -89,7 +97,7 @@ class FeedsController extends GetxController {
 
       // Create a new comment object
       model.CommentsOnFeed newComment =
-          model.CommentsOnFeed(name: userName, comment: comment);
+          model.CommentsOnFeed(name: username, comment: comment);
 
       // Convert the comment object to JSON and add it to the list of comments
       comments.add(newComment.toJson());
@@ -98,6 +106,51 @@ class FeedsController extends GetxController {
       await postRef.update({'comments': comments});
     }
   }
+
+  void addReplyToComment(
+  String userId,
+  String postId,
+  String parentCommentId,
+  String reply,
+) async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  String? username = prefs.getString('userName');
+  
+  // Get a reference to the post document
+  DocumentReference postRef = FirebaseFirestore.instance
+      .collection('users')
+      .doc(userId)
+      .collection('feeds')
+      .doc(postId);
+
+  // Get the current data of the post
+  DocumentSnapshot postDoc = await postRef.get();
+  if (postDoc.exists) {
+    var data = postDoc.data() as Map<String, dynamic>;
+    List<dynamic> comments = data['comments'] ?? [];
+
+    // Find the parent comment in the comments list
+    var parentComment = comments.firstWhere(
+      (comment) => comment['id'] == parentCommentId,
+      orElse: () => null,
+    );
+    if (parentComment != null) {
+      // Initialize replies list if null
+      parentComment['replies'] ??= [];
+
+      // Create a new reply object
+      model.CommentsOnFeed newReply =
+          model.CommentsOnFeed(name: username, comment: reply);
+
+      // Add the new reply to the parent comment's replies list
+      parentComment['replies'].add(newReply.toJson());
+
+      // Update the post document with the updated comments list
+      await postRef.update({'comments': comments});
+    }
+  }
+}
+
 
   void getComments(String userId, String postId) async {
     // Get a reference to the post document
@@ -119,7 +172,8 @@ class FeedsController extends GetxController {
 
       // Convert each comment data to a Comment object and add to the comments list
       commentsData.forEach((commentData) {
-        model.CommentsOnFeed comment = model.CommentsOnFeed.fromJson(commentData);
+        model.CommentsOnFeed comment =
+            model.CommentsOnFeed.fromJson(commentData);
         comments.add(comment);
       });
 
@@ -142,6 +196,7 @@ class FeedsController extends GetxController {
             image: data['image'],
             title: data['title'],
             userUid: data['userUid'],
+            ownerName: data['ownerName'],
             timeStamp: data['timeStamp'],
           );
           userFeeds.add(feed);

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:pet_store_app/src/components/core/app_assets.dart';
 import 'package:pet_store_app/src/components/core/app_colors.dart';
 import 'package:pet_store_app/src/components/text/customText.dart';
 import 'package:pet_store_app/src/controllers/auth_controller.dart';
 import 'package:pet_store_app/src/controllers/video_hosting_controller.dart';
+import 'package:pet_store_app/src/screens/bottomNavBar/screens/tabbar/add_comment_videos.dart';
 import 'package:pet_store_app/src/screens/bottomNavBar/screens/tabbar/add_video.dart';
+import 'package:pet_store_app/src/screens/bottomNavBar/screens/tabbar/playVideo.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class VideosScreen extends StatelessWidget {
@@ -46,7 +47,8 @@ class VideosScreen extends StatelessWidget {
             SizedBox(
               height: 2.h,
             ),
-            Expanded(
+            SizedBox(
+              height: 60.h,
               child: Obx(
                 () => ListView.builder(
                   itemCount: controller.feedList.length,
@@ -61,44 +63,104 @@ class VideosScreen extends StatelessWidget {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
                           String? userName = snapshot.data;
-                          return Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(20.0),
-                                child: Image.asset(
-                                  AppAssets.petStore,
-                                  width: 45.w,
-                                ),
-                              ),
-                              SizedBox(
-                                width: 2.w,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    width: 45.w,
-                                    child: CustomText(
-                                      text:
-                                          "Try not to laugh Dogs and cats best funniest animal videos 2023",
-                                      fontSize: 14.sp,
+                          return Padding(
+                            padding: EdgeInsets.only(bottom: 12.sp),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => PlayVideo(
+                                                  videoUrl: video,
+                                                  title: title,
+                                                )));
+                                  },
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    child: Image.asset(
+                                      AppAssets.petStore,
+                                      width: 45.w,
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: 1.h,
-                                  ),
-                                  CustomText(
-                                    text: "456K views",
-                                    fontSize: 14.sp,
-                                  ),
-                                  CustomText(
-                                    text: "1 month ago",
-                                    fontSize: 14.sp,
-                                  ),
-                                ],
-                              )
-                            ],
+                                ),
+                                SizedBox(
+                                  width: 2.w,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      width: 45.w,
+                                      child: CustomText(
+                                        text: title,
+                                        fontSize: 14.sp,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 1.h,
+                                    ),
+                                    CustomText(
+                                      text: "456K views",
+                                      fontSize: 14.sp,
+                                    ),
+                                    CustomText(
+                                      text: "1 month ago",
+                                      fontSize: 14.sp,
+                                    ),
+                                    SizedBox(
+                                      height: 1.h,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            const Icon(Icons.thumb_up),
+                                            SizedBox(
+                                              width: 1.w,
+                                            ),
+                                            CustomText(
+                                              text: "Like",
+                                              fontSize: 15.sp,
+                                            )
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          width: 2.w,
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        AddCommentOnVideos(
+                                                            userId: userId,
+                                                            postId: postId)));
+                                            controller.getComments(
+                                                userId, postId);
+                                          },
+                                          child: Row(
+                                            children: [
+                                              const Icon(Icons.comment),
+                                              SizedBox(
+                                                width: 1.w,
+                                              ),
+                                              CustomText(
+                                                text: "Comment",
+                                                fontSize: 15.sp,
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
                           );
                         } else {
                           return const CircularProgressIndicator();

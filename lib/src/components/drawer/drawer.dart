@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pet_store_app/src/components/core/app_colors.dart';
 import 'package:pet_store_app/src/components/drawer/drawerItem.dart';
 import 'package:pet_store_app/src/components/text/customText.dart';
+import 'package:pet_store_app/src/screens/bottomNavBar/screens/add_shelter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class UserDrawer extends StatelessWidget {
@@ -62,23 +63,36 @@ class UserDrawer extends StatelessWidget {
               ),
             ],
           ),
-          const DrawerItem(
+          DrawerItem(
+            voidCallback: () {},
             text: "Profile",
             icon: Icons.person_outline,
           ),
-          const DrawerItem(
+          DrawerItem(
+            voidCallback: () {},
             text: "Add / Edit Pets",
             icon: Icons.edit_outlined,
           ),
-          const DrawerItem(
+          DrawerItem(
+            voidCallback: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => AddShelter()));
+            },
+            text: "Add Shelter",
+            icon: Icons.edit_outlined,
+          ),
+          DrawerItem(
+            voidCallback: () {},
             text: "Cart",
             icon: Icons.shopping_cart_outlined,
           ),
-          const DrawerItem(
+          DrawerItem(
+            voidCallback: () {},
             text: "Pet History",
             icon: Icons.pets_sharp,
           ),
-          const DrawerItem(
+          DrawerItem(
+            voidCallback: () {},
             text: "Logout",
             icon: Icons.logout_outlined,
           ),

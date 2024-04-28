@@ -7,10 +7,11 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../controllers/feeds_controller.dart';
 
-class AddComment extends StatelessWidget {
+class AddCommentOnFeeds extends StatelessWidget {
   final String userId;
   final String postId;
-  const AddComment({super.key, required this.userId, required this.postId});
+  const AddCommentOnFeeds(
+      {super.key, required this.userId, required this.postId});
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +66,17 @@ class AddComment extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
+                        height: 5.sp,
+                      ),
+                      GestureDetector(
+                        onTap: (){},
+                        child: CustomText(
+                          text: "Replies",
+                          fontSize: 15.sp,
+                          textColor: AppColors.primaryGrey,
+                        ),
+                      ),
+                      SizedBox(
                         height: 2.h,
                       ),
                     ],
@@ -85,7 +97,7 @@ class AddComment extends StatelessWidget {
               InkWell(
                 onTap: () {
                   controller.addCommentOnPost(
-                      userId, postId, "Nimra Amjad", commentController.text);
+                      userId, postId, commentController.text);
                   commentController.clear();
                   controller.getComments(userId, postId);
                 },

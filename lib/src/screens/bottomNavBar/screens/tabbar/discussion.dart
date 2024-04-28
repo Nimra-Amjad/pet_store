@@ -4,7 +4,7 @@ import 'package:pet_store_app/src/components/core/app_colors.dart';
 import 'package:pet_store_app/src/components/text/customText.dart';
 import 'package:pet_store_app/src/controllers/auth_controller.dart';
 import 'package:pet_store_app/src/controllers/feeds_controller.dart';
-import 'package:pet_store_app/src/screens/bottomNavBar/screens/tabbar/add_comment.dart';
+import 'package:pet_store_app/src/screens/bottomNavBar/screens/tabbar/add_comment_feeds.dart';
 import 'package:pet_store_app/src/screens/bottomNavBar/screens/tabbar/add_post.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -56,6 +56,8 @@ class DiscussionScreen extends StatelessWidget {
                     String imageUrl = controller.feedList[index].image;
                     String userId = controller.feedList[index].userUid;
                     String postId = controller.feedList[index].postId;
+                    String ownerName =
+                        controller.feedList[index].ownerName;
 
                     return FutureBuilder<String?>(
                       future: authController.getUserName(),
@@ -78,7 +80,7 @@ class DiscussionScreen extends StatelessWidget {
                                   SizedBox(
                                     width: 2.w,
                                   ),
-                                  CustomText(text: "Nimra Amjad"),
+                                  CustomText(text: ownerName),
                                 ],
                               ),
                               SizedBox(
@@ -127,9 +129,10 @@ class DiscussionScreen extends StatelessWidget {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => AddComment(
-                                                  userId: userId,
-                                                  postId: postId)));
+                                              builder: (context) =>
+                                                  AddCommentOnFeeds(
+                                                      userId: userId,
+                                                      postId: postId)));
                                       controller.getComments(userId, postId);
                                     },
                                     child: Row(
