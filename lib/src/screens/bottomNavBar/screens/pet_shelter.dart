@@ -60,43 +60,46 @@ class PetShelterScreen extends StatelessWidget {
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         String? userName = snapshot.data;
-                        return Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              color: AppColors.blackColor,
-                              borderRadius: BorderRadius.circular(14.0)),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 10.sp, vertical: 10.sp),
-                            child: Column(
-                              children: [
-                                CustomText(
-                                  text: shelterName,
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.bold,
-                                  textColor: AppColors.primaryWhite,
-                                ),
-                                SizedBox(
-                                  height: 1.h,
-                                ),
-                                CustomText(
-                                  text: "Contact No: $contactNo",
-                                  textColor: AppColors.primaryWhite,
-                                  fontSize: 16.sp,
-                                ),
-                                CustomText(
-                                  text: "Address: $address",
-                                  textColor: AppColors.primaryWhite,
-                                  fontSize: 16.sp,
-                                ),
-                                SizedBox(
-                                  height: 1.h,
-                                ),
-                                CustomButton(
-                                    text: "Contact Now",
-                                    btnColor: AppColors.lightGreenColor,
-                                    voidCallback: () {})
-                              ],
+                        return Padding(
+                          padding: EdgeInsets.only(bottom: 12.sp),
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                color: AppColors.blackColor,
+                                borderRadius: BorderRadius.circular(14.0)),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10.sp, vertical: 10.sp),
+                              child: Column(
+                                children: [
+                                  CustomText(
+                                    text: shelterName,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.bold,
+                                    textColor: AppColors.primaryWhite,
+                                  ),
+                                  SizedBox(
+                                    height: 1.h,
+                                  ),
+                                  CustomText(
+                                    text: "Contact No: $contactNo",
+                                    textColor: AppColors.primaryWhite,
+                                    fontSize: 16.sp,
+                                  ),
+                                  CustomText(
+                                    text: "Address: $address",
+                                    textColor: AppColors.primaryWhite,
+                                    fontSize: 16.sp,
+                                  ),
+                                  SizedBox(
+                                    height: 1.h,
+                                  ),
+                                  CustomButton(
+                                      text: "Contact Now",
+                                      btnColor: AppColors.lightGreenColor,
+                                      voidCallback: () {})
+                                ],
+                              ),
                             ),
                           ),
                         );

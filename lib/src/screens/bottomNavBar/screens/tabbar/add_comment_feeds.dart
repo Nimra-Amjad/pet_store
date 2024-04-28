@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:pet_store_app/src/components/core/app_colors.dart';
 import 'package:pet_store_app/src/components/text/customText.dart';
 import 'package:pet_store_app/src/components/textfield/customTextField.dart';
+import 'package:pet_store_app/src/screens/bottomNavBar/screens/tabbar/add_replies_feeds.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../controllers/feeds_controller.dart';
@@ -69,7 +70,12 @@ class AddCommentOnFeeds extends StatelessWidget {
                         height: 5.sp,
                       ),
                       GestureDetector(
-                        onTap: (){},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>AddRepliesFeeds(parentCommentId: controller.comments[index].toString(), postId: postId, userId: userId)));
+                        },
                         child: CustomText(
                           text: "Replies",
                           fontSize: 15.sp,
