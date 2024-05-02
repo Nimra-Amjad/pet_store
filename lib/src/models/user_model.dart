@@ -132,6 +132,27 @@ class CommentsOnFeed {
       {"name": name, "comment": comment, "replies": replies};
 }
 
+///<-------------------------------RepliesOnFeed Model--------------------------------->
+
+class RepliesOnFeed {
+  final String? name;
+  final String? reply;
+
+  RepliesOnFeed({this.name, this.reply});
+
+  factory RepliesOnFeed.fromJson(Map<String, dynamic> json) {
+    return RepliesOnFeed(
+      name: json['name'] ?? '',
+      reply: json['reply'] ?? '',
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        "name": name,
+        "reply": reply,
+      };
+}
+
 ///<-------------------------------Videos Model--------------------------------->
 
 class Videos {

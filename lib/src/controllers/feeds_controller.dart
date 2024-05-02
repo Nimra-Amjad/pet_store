@@ -17,6 +17,7 @@ class FeedsController extends GetxController {
   User? user = FirebaseAuth.instance.currentUser;
   RxList feedList = [].obs;
   RxList<model.CommentsOnFeed> comments = <model.CommentsOnFeed>[].obs;
+  RxList<model.RepliesOnFeed> replyOnCommentFeed = <model.RepliesOnFeed>[].obs;
 
   Future pickImage(ImageSource source) async {
     try {
@@ -77,10 +78,8 @@ class FeedsController extends GetxController {
     }
   }
 
-  void addCommentOnPost(
-      String userId, String postId, String comment) async {
-
-        final SharedPreferences prefs = await SharedPreferences.getInstance();
+  void addCommentOnPost(String userId, String postId, String comment) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     String? username = prefs.getString('userName');
     // Get a reference to the post document
     DocumentReference postRef = FirebaseFirestore.instance
@@ -108,49 +107,142 @@ class FeedsController extends GetxController {
   }
 
   void addReplyToComment(
-  String userId,
-  String postId,
-  String parentCommentId,
-  String reply,
-) async {
-  final SharedPreferences prefs = await SharedPreferences.getInstance();
-  String? username = prefs.getString('userName');
-  
-  // Get a reference to the post document
-  DocumentReference postRef = FirebaseFirestore.instance
-      .collection('users')
-      .doc(userId)
-      .collection('feeds')
-      .doc(postId);
+    String userId,
+    String postId,
+    int index,
+    String reply,
+  ) async {
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? username = prefs.getString('userName');
+      DocumentReference feedRef = FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .collection('feeds')
+          .doc(postId);
 
-  // Get the current data of the post
-  DocumentSnapshot postDoc = await postRef.get();
-  if (postDoc.exists) {
-    var data = postDoc.data() as Map<String, dynamic>;
-    List<dynamic> comments = data['comments'] ?? [];
+      await FirebaseFirestore.instance.runTransaction((transaction) async {
+        DocumentSnapshot snapshot = await transaction.get(feedRef);
+        if (snapshot.exists) {
+          Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
+          if (data != null) {
+            List<dynamic> comments = data['comments'];
+            // Ensure that the 'replies' list exists before attempting to add a reply
+            if (comments[index]['replies'] == null) {
+              comments[index]['replies'] = <String>[];
+            }
+            model.RepliesOnFeed newReply =
+                model.RepliesOnFeed(name: username, reply: reply);
+            comments[index]['replies'].add(newReply.toJson());
+            transaction.update(feedRef, {'comments': comments});
+          } else {
+            print('Document data is null');
+          }
+        } else {
+          print('Document does not exist');
+        }
+      });
 
-    // Find the parent comment in the comments list
-    var parentComment = comments.firstWhere(
-      (comment) => comment['id'] == parentCommentId,
-      orElse: () => null,
-    );
-    if (parentComment != null) {
-      // Initialize replies list if null
-      parentComment['replies'] ??= [];
-
-      // Create a new reply object
-      model.CommentsOnFeed newReply =
-          model.CommentsOnFeed(name: username, comment: reply);
-
-      // Add the new reply to the parent comment's replies list
-      parentComment['replies'].add(newReply.toJson());
-
-      // Update the post document with the updated comments list
-      await postRef.update({'comments': comments});
+      print('Reply added successfully');
+    } catch (e) {
+      print('Error adding reply: $e');
     }
   }
-}
 
+  Future<List<dynamic>> getRepliesForComment(
+      String userId, String postId, int index) async {
+    try {
+      DocumentSnapshot snapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .collection('feeds')
+          .doc(postId)
+          .get();
+
+      if (snapshot.exists) {
+        Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
+        if (data != null) {
+          List<dynamic> comments = data['comments'];
+          if (comments[index]['replies'] != null) {
+            return List.from(comments[index]['replies']);
+          } else {
+            return [];
+          }
+        } else {
+          print('Document data is null');
+          return [];
+        }
+      } else {
+        print('Document does not exist');
+        return [];
+      }
+    } catch (e) {
+      print('Error getting replies: $e');
+      return [];
+    }
+  }
+
+  Future<void> fetchAndSetReplies(
+      String userId, String postId, int commentIndex) async {
+    try {
+      List<dynamic> replies =
+          await getRepliesForComment(userId, postId, commentIndex);
+      // Clear the existing list and add new replies
+      replyOnCommentFeed.clear();
+      for (var replyMap in replies) {
+        replyOnCommentFeed.add(model.RepliesOnFeed.fromJson(replyMap));
+      }
+      print(replyOnCommentFeed);
+    } catch (e) {
+      print('Error fetching and setting replies: $e');
+    }
+  }
+
+  // void addReplyToComment(
+  //   String userId,
+  //   String postId,
+  //   String parentCommentId,
+  //   String reply,
+  // ) async {
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String? username = prefs.getString('userName');
+
+  //   print(username);
+  //   // Get a reference to the post document
+  //   DocumentReference postRef = FirebaseFirestore.instance
+  //       .collection('users')
+  //       .doc(userId)
+  //       .collection('feeds')
+  //       .doc(postId);
+
+  //   // Get the current data of the post
+  //   DocumentSnapshot postDoc = await postRef.get();
+  //   if (postDoc.exists) {
+  //     print("trueeeeeeeeee");
+  //     var data = postDoc.data() as Map<String, dynamic>;
+  //     List<dynamic> comments = data['comments'] ?? [];
+
+  //     // Find the parent comment in the comments list
+  //     var parentComment = comments.firstWhere(
+  //       (comment) => comment['id'] == parentCommentId,
+  //       orElse: () => null,
+  //     );
+  //     if (parentComment != null) {
+  //       // Initialize replies list if null
+  //       parentComment['replies'] ??= [];
+
+  //       // Create a new reply object
+  //       model.CommentsOnFeed newReply =
+  //           model.CommentsOnFeed(name: username, comment: reply);
+
+  //       // Add the new reply to the parent comment's replies list
+  //       parentComment['replies'].add(newReply.toJson());
+
+  //       // Update the post document with the updated comments list
+  //       await postRef.update({'comments': comments});
+  //     }
+  //   }
+  // }
 
   void getComments(String userId, String postId) async {
     // Get a reference to the post document

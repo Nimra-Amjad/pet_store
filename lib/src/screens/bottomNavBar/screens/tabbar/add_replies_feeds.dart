@@ -7,12 +7,12 @@ import 'package:pet_store_app/src/controllers/feeds_controller.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class AddRepliesFeeds extends StatelessWidget {
-  final String parentCommentId;
+  final int index;
   final String postId;
   final String userId;
   const AddRepliesFeeds(
       {super.key,
-      required this.parentCommentId,
+      required this.index,
       required this.postId,
       required this.userId});
 
@@ -20,6 +20,7 @@ class AddRepliesFeeds extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextEditingController commentController = TextEditingController();
     final FeedsController controller = Get.put(FeedsController());
+    controller.fetchAndSetReplies(userId, postId, index);
     return Scaffold(
         appBar: AppBar(
           title: const CustomText(text: "Replies"),
@@ -31,6 +32,10 @@ class AddRepliesFeeds extends StatelessWidget {
             () => ListView.builder(
                 itemCount: controller.comments.length,
                 itemBuilder: (context, index) {
+                  if (controller.replyOnCommentFeed.isEmpty) {
+                    // Handle case when the list is empty
+                    return Container(); // or any other widget to display when no replies are available
+                  }
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -48,7 +53,8 @@ class AddRepliesFeeds extends StatelessWidget {
                             width: 2.w,
                           ),
                           CustomText(
-                            text: controller.comments[index].name ?? '',
+                            text:
+                                controller.replyOnCommentFeed[index].name ?? '',
                           ),
                         ],
                       ),
@@ -64,18 +70,9 @@ class AddRepliesFeeds extends StatelessWidget {
                           padding: EdgeInsets.symmetric(
                               horizontal: 8.sp, vertical: 12.sp),
                           child: CustomText(
-                              text: controller.comments[index].comment ?? ''),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5.sp,
-                      ),
-                      GestureDetector(
-                        onTap: () {},
-                        child: CustomText(
-                          text: "Replies",
-                          fontSize: 15.sp,
-                          textColor: AppColors.primaryGrey,
+                              text:
+                                  controller.replyOnCommentFeed[index].reply ??
+                                      ''),
                         ),
                       ),
                       SizedBox(
@@ -99,7 +96,7 @@ class AddRepliesFeeds extends StatelessWidget {
               InkWell(
                 onTap: () {
                   controller.addReplyToComment(
-                      userId, postId, parentCommentId, commentController.text);
+                      userId, postId, index, commentController.text);
                   commentController.clear();
                 },
                 child: Icon(

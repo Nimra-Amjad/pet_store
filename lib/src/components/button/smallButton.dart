@@ -11,9 +11,11 @@ class SmallButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: voidCallback,
       child: Container(
+        width: 40.w,
+        alignment: Alignment.center,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12.0),
             color: AppColors.backgroundDarkBlue),

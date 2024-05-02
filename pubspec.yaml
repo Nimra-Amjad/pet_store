@@ -38,6 +38,7 @@ dependencies:
   fluttertoast: ^8.2.4
   get: ^4.6.6
   image_picker: ^1.0.8
+  modal_bottom_sheet: ^3.0.0
   responsive_sizer: ^3.3.1
   shared_preferences: ^2.2.3
   video_player: ^2.8.6
