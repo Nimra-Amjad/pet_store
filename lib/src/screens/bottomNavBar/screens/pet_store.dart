@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pet_store_app/src/components/button/smallButton.dart';
 import 'package:pet_store_app/src/components/core/app_assets.dart';
@@ -7,6 +8,7 @@ import 'package:pet_store_app/src/components/text/customText.dart';
 import 'package:pet_store_app/src/components/textfield/customTextField.dart';
 import 'package:pet_store_app/src/components/widgets/shopPetFoodcontainer.dart';
 import 'package:pet_store_app/src/components/widgets/topHeadingContainer.dart';
+import 'package:pet_store_app/src/controllers/cartController.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class PetStoreScreen extends StatelessWidget {
@@ -15,6 +17,8 @@ class PetStoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController searchController = TextEditingController();
+    final CartController cartController = Get.put(CartController());
+
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.sp),
       child: Column(
@@ -112,7 +116,64 @@ class PetStoreScreen extends StatelessWidget {
                                     SizedBox(
                                       height: 2.h,
                                     ),
-                                    
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Image.asset(
+                                              AppAssets.petFood1,
+                                              width: 8.w,
+                                              height: 8.h,
+                                            ),
+                                            SizedBox(
+                                              width: 4.w,
+                                            ),
+                                            CustomText(
+                                              text: "PEDIGREE",
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 14.sp,
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            IconButton(
+                                                onPressed: () {
+                                                  cartController.increment();
+                                                },
+                                                icon: const Icon(Icons.add,
+                                                    color:
+                                                        AppColors.greenColor)),
+                                            SizedBox(
+                                              width: 1.w,
+                                            ),
+                                            Obx(
+                                              () => CustomText(
+                                                text: cartController.product.toString(),
+                                                fontSize: 15.sp,
+                                                fontWeight: FontWeight.bold,
+                                                textColor:
+                                                    AppColors.primaryGrey,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 1.w,
+                                            ),
+                                            IconButton(
+                                                onPressed: () {
+                                                  cartController.decrement();
+                                                },
+                                                icon: const Icon(Icons.remove,
+                                                    color:
+                                                        AppColors.greenColor)),
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ),
