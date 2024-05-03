@@ -32,8 +32,8 @@ class AddRepliesFeeds extends StatelessWidget {
             () => ListView.builder(
                 itemCount: controller.comments.length,
                 itemBuilder: (context, index) {
-                  if (controller.replyOnCommentFeed.isEmpty) {
-                    // Handle case when the list is empty
+                  if (controller.replyOnCommentFeed.isEmpty ||
+                      index >= controller.replyOnCommentFeed.length) {
                     return Container(); // or any other widget to display when no replies are available
                   }
                   return Column(
@@ -89,8 +89,8 @@ class AddRepliesFeeds extends StatelessWidget {
             children: [
               CustomTextFormField(
                   width: 70.w,
-                  hintText: "Add Comment",
-                  labelText: "Add Comment",
+                  hintText: "Add Replies",
+                  labelText: "Add Replies",
                   fillColor: AppColors.lightGrey,
                   controller: commentController),
               InkWell(
@@ -98,6 +98,7 @@ class AddRepliesFeeds extends StatelessWidget {
                   controller.addReplyToComment(
                       userId, postId, index, commentController.text);
                   commentController.clear();
+                  controller.fetchAndSetReplies(userId, postId, index);
                 },
                 child: Icon(
                   Icons.send,

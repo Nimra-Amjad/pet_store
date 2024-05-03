@@ -71,8 +71,6 @@ class AddCommentOnFeeds extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          print(index);
-                          controller.fetchAndSetReplies(userId, postId, index);
                           Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -80,6 +78,7 @@ class AddCommentOnFeeds extends StatelessWidget {
                                       index: index,
                                       postId: postId,
                                       userId: userId)));
+                          controller.fetchAndSetReplies(userId, postId, index);
                         },
                         child: CustomText(
                           text: "Replies",

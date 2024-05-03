@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:pet_store_app/src/components/button/smallButton.dart';
 import 'package:pet_store_app/src/components/core/app_assets.dart';
 import 'package:pet_store_app/src/components/core/app_colors.dart';
-import 'package:pet_store_app/src/components/text/customText.dart';
 import 'package:pet_store_app/src/components/textfield/customTextField.dart';
 import 'package:pet_store_app/src/components/widgets/shopPetFoodcontainer.dart';
 import 'package:pet_store_app/src/components/widgets/topHeadingContainer.dart';
-import 'package:pet_store_app/src/controllers/cartController.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class PetStoreScreen extends StatelessWidget {
@@ -17,7 +12,6 @@ class PetStoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController searchController = TextEditingController();
-    final CartController cartController = Get.put(CartController());
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.sp),
@@ -55,7 +49,7 @@ class PetStoreScreen extends StatelessWidget {
                         const ShopPetFoodContainer(
                           image: AppAssets.petFood1,
                           productName: "PEDIGREE 400G",
-                          price: "Rs 4000",
+                          price: "4000",
                         ),
                         SizedBox(
                           height: 2.h,
@@ -63,7 +57,7 @@ class PetStoreScreen extends StatelessWidget {
                         const ShopPetFoodContainer(
                           image: AppAssets.petFood2,
                           productName: "PEDIGREE 400G",
-                          price: "Rs 3000",
+                          price: "3000",
                         )
                       ],
                     ),
@@ -72,7 +66,7 @@ class PetStoreScreen extends StatelessWidget {
                         const ShopPetFoodContainer(
                           image: AppAssets.petFood3,
                           productName: "PEDIGREE 400G",
-                          price: "Rs 2000",
+                          price: "2000",
                         ),
                         SizedBox(
                           height: 2.h,
@@ -80,7 +74,7 @@ class PetStoreScreen extends StatelessWidget {
                         const ShopPetFoodContainer(
                           image: AppAssets.petFood4,
                           productName: "PEDIGREE 400G",
-                          price: "Rs 5000",
+                          price: "5000",
                         )
                       ],
                     ),
@@ -89,7 +83,7 @@ class PetStoreScreen extends StatelessWidget {
                         const ShopPetFoodContainer(
                           image: AppAssets.petFood5,
                           productName: "PEDIGREE 400G",
-                          price: "Rs 4000",
+                          price: "4000",
                         ),
                         SizedBox(
                           height: 2.h,
@@ -97,7 +91,7 @@ class PetStoreScreen extends StatelessWidget {
                         const ShopPetFoodContainer(
                           image: AppAssets.petFood6,
                           productName: "PEDIGREE 400G",
-                          price: "Rs 2000",
+                          price: "2000",
                         )
                       ],
                     )

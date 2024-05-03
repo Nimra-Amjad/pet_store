@@ -5,6 +5,7 @@ import 'package:pet_store_app/src/components/button/smallButton.dart';
 import 'package:pet_store_app/src/components/core/app_colors.dart';
 import 'package:pet_store_app/src/components/text/customText.dart';
 import 'package:pet_store_app/src/controllers/cartController.dart';
+import 'package:pet_store_app/src/screens/bottomNavBar/screens/checkOutScreen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class ShopPetFoodContainer extends StatelessWidget {
@@ -124,15 +125,29 @@ class ShopPetFoodContainer extends StatelessWidget {
                 SizedBox(
                   height: 2.h,
                 ),
-                cartController.product == 0
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          SmallButton(text: "Add To Cart", voidCallback: () {}),
-                          SmallButton(text: "Buy Now", voidCallback: () {})
-                        ],
-                      )
-                    : SizedBox(),
+                Obx(
+                  () => Visibility(
+                    visible: cartController.product != 0,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        SmallButton(
+                            text: "Rs " +
+                                (cartController.product * int.parse(price))
+                                    .toString(),
+                            voidCallback: () {}),
+                        SmallButton(
+                            text: "Buy Now",
+                            voidCallback: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CheckOutScreen()));
+                            })
+                      ],
+                    ),
+                  ),
+                )
               ],
             ),
           ),
@@ -160,7 +175,7 @@ class ShopPetFoodContainer extends StatelessWidget {
             fontSize: 15.sp,
           ),
           CustomText(
-            text: price,
+            text: "Rs $price",
             fontSize: 15.sp,
           )
         ],
