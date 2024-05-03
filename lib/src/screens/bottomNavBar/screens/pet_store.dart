@@ -52,177 +52,52 @@ class PetStoreScreen extends StatelessWidget {
                   children: [
                     Column(
                       children: [
-                        ShopPetFoodContainer(
-                          voidCallback: () {
-                            showCupertinoModalBottomSheet(
-                              context: context,
-                              builder: (context) => Padding(
-                                padding: EdgeInsets.all(16.sp),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Image.asset(
-                                          AppAssets.petFood1,
-                                          width: 15.w,
-                                          height: 15.h,
-                                        ),
-                                        SizedBox(
-                                          width: 4.w,
-                                        ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            const CustomText(
-                                              text: "PEDIGREE",
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                            CustomText(
-                                              text: "PKR 4,000",
-                                              fontSize: 15.sp,
-                                              fontWeight: FontWeight.bold,
-                                              textColor: AppColors.primaryGrey,
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 2.h,
-                                    ),
-                                    CustomText(
-                                      text:
-                                          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-                                      fontSize: 16.sp,
-                                    ),
-                                    SizedBox(
-                                      height: 2.h,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        SmallButton(
-                                            text: "Add To Cart",
-                                            voidCallback: () {}),
-                                        SmallButton(
-                                            text: "Buy Now",
-                                            voidCallback: () {})
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 2.h,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Image.asset(
-                                              AppAssets.petFood1,
-                                              width: 8.w,
-                                              height: 8.h,
-                                            ),
-                                            SizedBox(
-                                              width: 4.w,
-                                            ),
-                                            CustomText(
-                                              text: "PEDIGREE",
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 14.sp,
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            IconButton(
-                                                onPressed: () {
-                                                  cartController.increment();
-                                                },
-                                                icon: const Icon(Icons.add,
-                                                    color:
-                                                        AppColors.greenColor)),
-                                            SizedBox(
-                                              width: 1.w,
-                                            ),
-                                            Obx(
-                                              () => CustomText(
-                                                text: cartController.product.toString(),
-                                                fontSize: 15.sp,
-                                                fontWeight: FontWeight.bold,
-                                                textColor:
-                                                    AppColors.primaryGrey,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 1.w,
-                                            ),
-                                            IconButton(
-                                                onPressed: () {
-                                                  cartController.decrement();
-                                                },
-                                                icon: const Icon(Icons.remove,
-                                                    color:
-                                                        AppColors.greenColor)),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
+                        const ShopPetFoodContainer(
                           image: AppAssets.petFood1,
-                          text: "PEDIGREE 400G\n4000 PKR",
+                          productName: "PEDIGREE 400G",
+                          price: "Rs 4000",
                         ),
                         SizedBox(
                           height: 2.h,
                         ),
-                        ShopPetFoodContainer(
-                          voidCallback: () {},
-                          image: AppAssets.petFood1,
-                          text: "PEDIGREE 400G\n4000 PKR",
+                        const ShopPetFoodContainer(
+                          image: AppAssets.petFood2,
+                          productName: "PEDIGREE 400G",
+                          price: "Rs 3000",
                         )
                       ],
                     ),
                     Column(
                       children: [
-                        ShopPetFoodContainer(
-                          voidCallback: () {},
-                          image: AppAssets.petFood1,
-                          text: "PEDIGREE 400G\n4000 PKR",
+                        const ShopPetFoodContainer(
+                          image: AppAssets.petFood3,
+                          productName: "PEDIGREE 400G",
+                          price: "Rs 2000",
                         ),
                         SizedBox(
                           height: 2.h,
                         ),
-                        ShopPetFoodContainer(
-                          voidCallback: () {},
-                          image: AppAssets.petFood1,
-                          text: "PEDIGREE 400G\n4000 PKR",
+                        const ShopPetFoodContainer(
+                          image: AppAssets.petFood4,
+                          productName: "PEDIGREE 400G",
+                          price: "Rs 5000",
                         )
                       ],
                     ),
                     Column(
                       children: [
-                        ShopPetFoodContainer(
-                          voidCallback: () {},
-                          image: AppAssets.petFood1,
-                          text: "PEDIGREE 400G\n4000 PKR",
+                        const ShopPetFoodContainer(
+                          image: AppAssets.petFood5,
+                          productName: "PEDIGREE 400G",
+                          price: "Rs 4000",
                         ),
                         SizedBox(
                           height: 2.h,
                         ),
-                        ShopPetFoodContainer(
-                          voidCallback: () {},
-                          image: AppAssets.petFood1,
-                          text: "PEDIGREE 400G\n4000 PKR",
+                        const ShopPetFoodContainer(
+                          image: AppAssets.petFood6,
+                          productName: "PEDIGREE 400G",
+                          price: "Rs 2000",
                         )
                       ],
                     )

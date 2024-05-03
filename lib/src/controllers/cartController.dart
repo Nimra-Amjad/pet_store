@@ -18,4 +18,8 @@ class CartController extends GetxController {
       product.value--;
     }
   }
+
+  void reset() {
+    product.value = 0;
+  }
 }
