@@ -8,18 +8,22 @@ class CustomButton extends StatelessWidget {
   final double? width;
   final Color? btnColor;
   const CustomButton(
-      {super.key, required this.text, required this.voidCallback, this.width, this.btnColor});
+      {super.key,
+      required this.text,
+      required this.voidCallback,
+      this.width,
+      this.btnColor});
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: voidCallback,
       child: Container(
         width: width ?? double.infinity,
         alignment: Alignment.center,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.0),
-            color:btnColor?? AppColors.primaryBlack),
+            color: btnColor ?? AppColors.primaryBlack),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 20.0),
           child: CustomText(

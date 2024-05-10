@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:pet_store_app/src/components/core/app_assets.dart';
 import 'package:pet_store_app/src/components/core/app_colors.dart';
+import 'package:pet_store_app/src/components/text/customText.dart';
 import 'package:pet_store_app/src/components/textfield/customTextField.dart';
+import 'package:pet_store_app/src/components/widgets/petBuyAndSellContainer.dart';
 import 'package:pet_store_app/src/components/widgets/shopPetFoodcontainer.dart';
 import 'package:pet_store_app/src/components/widgets/topHeadingContainer.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -30,16 +33,46 @@ class PetStoreScreen extends StatelessWidget {
           Expanded(
               child: SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
                   height: 2.h,
                 ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20.0),
-                  child: Image.asset(AppAssets.petStore),
+                CustomText(
+                  text: "Pets Near You",
+                  fontSize: 17.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+                const SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      PetBuyAndSellContainer(
+                          petName: "Siamese Cat",
+                          petImage: AppAssets.cat1,
+                          petAge: "4 months"),
+                      PetBuyAndSellContainer(
+                          petName: "Siamese Cat",
+                          petImage: AppAssets.dog1,
+                          petAge: "4 months"),
+                      PetBuyAndSellContainer(
+                          petName: "Siamese Cat",
+                          petImage: AppAssets.cat1,
+                          petAge: "4 months"),
+                      PetBuyAndSellContainer(
+                          petName: "Siamese Cat",
+                          petImage: AppAssets.dog1,
+                          petAge: "4 months")
+                    ],
+                  ),
                 ),
                 SizedBox(
                   height: 2.h,
+                ),
+                CustomText(
+                  text: "Pets Food",
+                  fontSize: 17.sp,
+                  fontWeight: FontWeight.bold,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
