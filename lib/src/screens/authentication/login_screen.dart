@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pet_store_app/src/components/button/customButton.dart';
 import 'package:pet_store_app/src/components/core/app_colors.dart';
-import 'package:pet_store_app/src/components/core/toast_message.dart';
 import 'package:pet_store_app/src/components/text/customText.dart';
 import 'package:pet_store_app/src/components/textfield/customTextField.dart';
 import 'package:pet_store_app/src/controllers/auth_controller.dart';
@@ -74,11 +73,14 @@ class LoginScreen extends StatelessWidget {
                       );
                       if (res == "successfully loggedin") {
                         authController.navigateToHomeScreen(context);
-                        ToastMessage().toastMsg(
-                            "Successfully LoggedIn", AppColors.primaryBlack);
+                        Get.snackbar("Loggedin successfully", res,
+                            colorText: AppColors.primaryWhite,
+                            backgroundColor: AppColors.lightGreenColor);
                       } else {
-                        ToastMessage()
-                            .toastMsg("Login Failed", AppColors.primaryRed);
+                        Get.snackbar(
+                          res,
+                          "Please check your email and password",
+                        );
                       }
                     }),
                 SizedBox(

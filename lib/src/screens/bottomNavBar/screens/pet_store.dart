@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:pet_store_app/src/components/core/app_assets.dart';
 import 'package:pet_store_app/src/components/core/app_colors.dart';
 import 'package:pet_store_app/src/components/text/customText.dart';

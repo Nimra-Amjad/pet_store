@@ -1,12 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:pet_store_app/src/components/button/customButton.dart';
 import 'package:pet_store_app/src/components/button/smallButton.dart';
 import 'package:pet_store_app/src/components/core/app_colors.dart';
-import 'package:pet_store_app/src/components/core/toast_message.dart';
 import 'package:pet_store_app/src/components/text/customText.dart';
 import 'package:pet_store_app/src/controllers/video_hosting_controller.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -45,9 +41,15 @@ class AddVideo extends StatelessWidget {
                           Navigator.pop(context);
                           // controller.getFeedList();
                           textController.clear();
+                          Get.snackbar(
+                              "Success", "Video added to your news feed",
+                              colorText: AppColors.primaryWhite,
+                              backgroundColor: AppColors.lightGreenColor);
                         } else {
-                          ToastMessage()
-                              .toastMsg("Invalid Post", AppColors.primaryRed);
+                          Get.snackbar(
+                              "Invalid Post", "Please add the valid post",
+                              colorText: AppColors.primaryWhite,
+                              backgroundColor: AppColors.lightGreenColor);
                         }
                       },
                     )),

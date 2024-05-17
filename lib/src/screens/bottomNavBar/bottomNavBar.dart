@@ -4,9 +4,9 @@ import 'package:pet_store_app/src/components/core/app_colors.dart';
 import 'package:pet_store_app/src/components/drawer/drawer.dart';
 import 'package:pet_store_app/src/components/text/customText.dart';
 import 'package:pet_store_app/src/controllers/bottomNavBar_controller.dart';
+import 'package:pet_store_app/src/screens/bottomNavBar/screens/cart_screen.dart';
 import 'package:pet_store_app/src/screens/bottomNavBar/screens/pet_shelter.dart';
 import 'package:pet_store_app/src/screens/bottomNavBar/screens/pet_store.dart';
-import 'package:pet_store_app/src/screens/bottomNavBar/screens/shopping_cart.dart';
 import 'package:pet_store_app/src/screens/bottomNavBar/screens/tabbar/pet_community.dart';
 
 class BottomNavBar extends StatelessWidget {
@@ -103,7 +103,7 @@ class BottomNavBar extends StatelessWidget {
           IconButton(
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ShoppingCart()));
+                  MaterialPageRoute(builder: (context) => CartScreen()));
             },
             icon: Icon(
               Icons.shopping_cart,

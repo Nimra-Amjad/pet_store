@@ -5,7 +5,6 @@ import 'package:pet_store_app/src/components/button/smallButton.dart';
 import 'package:pet_store_app/src/components/core/app_colors.dart';
 import 'package:pet_store_app/src/components/text/customText.dart';
 import 'package:pet_store_app/src/controllers/cartController.dart';
-import 'package:pet_store_app/src/screens/bottomNavBar/screens/checkOutScreen.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 class ShopPetFoodContainer extends StatelessWidget {
@@ -137,13 +136,26 @@ class ShopPetFoodContainer extends StatelessWidget {
                                     .toString(),
                             voidCallback: () {}),
                         SmallButton(
-                            text: "Buy Now",
+                            text: "Add to Cart",
                             voidCallback: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => CheckOutScreen()));
+                              cartController.addToCart(
+                                  productImage: image,
+                                  productTitle: productName,
+                                  quantity: cartController.product.toString(),
+                                  price: price);
+                              Get.snackbar("Success", "Item added to cart",
+                                  backgroundColor:
+                                      Color.fromARGB(255, 206, 202, 202),
+                                  colorText: AppColors.blackColor);
                             })
+                        // SmallButton(
+                        //     text: "Buy Now",
+                        //     voidCallback: () {
+                        //       Navigator.push(
+                        //           context,
+                        //           MaterialPageRoute(
+                        //               builder: (context) => CheckOutScreen()));
+                        //     })
                       ],
                     ),
                   ),

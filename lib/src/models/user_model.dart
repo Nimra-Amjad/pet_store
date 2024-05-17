@@ -43,6 +43,45 @@ class User {
       };
 }
 
+///<-------------------------------Cart Model--------------------------------->
+
+class Cart {
+  final String? userUid;
+  final String? cartId;
+  final String? productImage;
+  final String? productTitle;
+  final String? quantity;
+  final String? productPrice;
+
+  Cart(
+      {this.userUid,
+      this.cartId,
+      this.productImage,
+      this.productTitle,
+      this.quantity,
+      this.productPrice});
+
+  static Cart fromSnap(DocumentSnapshot snap) {
+    var snapshot = snap.data() as Map<String, dynamic>;
+    return Cart(
+        userUid: snapshot['userUid'],
+        cartId: snapshot['cartId'],
+        productImage: snapshot['productImage'],
+        productTitle: snapshot['productTitle'],
+        quantity: snapshot['quantity'],
+        productPrice: snapshot['productPrice']);
+  }
+
+  Map<String, dynamic> toJson() => {
+        "userUid": userUid,
+        "cartId": cartId,
+        "productImage": productImage,
+        "productTitle": productTitle,
+        "quantity": quantity,
+        "productPrice": productPrice,
+      };
+}
+
 ///<-------------------------------Feeds Model--------------------------------->
 
 class Feeds {

@@ -6,7 +6,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:pet_store_app/src/components/button/customButton.dart';
 import 'package:pet_store_app/src/components/button/smallButton.dart';
 import 'package:pet_store_app/src/components/core/app_colors.dart';
-import 'package:pet_store_app/src/components/core/toast_message.dart';
 import 'package:pet_store_app/src/components/text/customText.dart';
 import 'package:pet_store_app/src/controllers/feeds_controller.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -44,9 +43,15 @@ class AddPost extends StatelessWidget {
                           Navigator.pop(context);
                           controller.getFeedList();
                           textController.clear();
+                          Get.snackbar(
+                              "Success", "Post added to your news feed",
+                              colorText: AppColors.primaryWhite,
+                              backgroundColor: AppColors.lightGreenColor);
                         } else {
-                          ToastMessage()
-                              .toastMsg("Invalid Post", AppColors.primaryRed);
+                          Get.snackbar(
+                              "Invalid Post", "Please add the valid post",
+                              colorText: AppColors.primaryWhite,
+                              backgroundColor: AppColors.lightGreenColor);
                         }
                       },
                     )),
