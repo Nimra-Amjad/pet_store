@@ -8,6 +8,7 @@ import 'package:pet_store_app/src/controllers/profile_controller.dart';
 import 'package:pet_store_app/src/screens/authentication/login_screen.dart';
 import 'package:pet_store_app/src/screens/bottomNavBar/screens/add_shelter.dart';
 import 'package:pet_store_app/src/screens/bottomNavBar/screens/profile_edit.dart';
+import 'package:pet_store_app/src/screens/dog_breed_prediction/dog_breed_prediction.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:pet_store_app/src/models/user_model.dart' as model;
 
@@ -107,6 +108,16 @@ class _UserDrawerState extends State<UserDrawer> {
           DrawerItem(
             voidCallback: () {},
             text: "Pet History",
+            icon: Icons.pets_sharp,
+          ),
+          DrawerItem(
+            voidCallback: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => DogBreedPredictionScreen()));
+            },
+            text: "Pet Breed Identifier",
             icon: Icons.pets_sharp,
           ),
           DrawerItem(
