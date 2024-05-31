@@ -8,7 +8,7 @@ import 'package:pet_store_app/src/controllers/profile_controller.dart';
 import 'package:pet_store_app/src/screens/authentication/login_screen.dart';
 import 'package:pet_store_app/src/screens/bottomNavBar/screens/add_shelter.dart';
 import 'package:pet_store_app/src/screens/bottomNavBar/screens/profile_edit.dart';
-import 'package:pet_store_app/src/screens/dog_breed_prediction/dog_breed_prediction.dart';
+import 'package:pet_store_app/src/screens/pet_breed_prediction/pet_breed_prediction.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:pet_store_app/src/models/user_model.dart' as model;
 

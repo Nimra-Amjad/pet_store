@@ -19,7 +19,7 @@ class DogBreedPredictionScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: CustomText(
-          text: "Dog Breed Identification",
+          text: "Pet Breed Identification",
           fontSize: 16.sp,
         ),
         elevation: 0.0,
